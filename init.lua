@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'marko-cerovac/material.nvim',
   'michaeljsmith/vim-indent-object',
   'tomtom/tcomment_vim',
   'tpope/vim-surround',
@@ -34,7 +33,14 @@ require('lazy').setup({
   'hrsh7th/vim-vsnip',
   'nvim-lualine/lualine.nvim',
   'baruchespinoza/config.vim',
+  {
+    "rockyzhang24/arctic.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
+    name = "arctic",
+    branch = "main",
+    priority = 1000,
+    config = function()
+      vim.cmd("colorscheme arctic")
+    end
+  }
 }, opts)
-
-
-vim.cmd 'colorscheme material'

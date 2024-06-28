@@ -50,6 +50,7 @@ require('mason-lspconfig').setup({
     'phpactor',
     'pyright',
     'vtsls',
+    'lua_ls',
   }
 })
 
@@ -68,6 +69,8 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('lspconfig')['phpactor'].setup { capabilities = capabilities }
 require('lspconfig')['pyright'].setup { capabilities = capabilities }
 require('lspconfig')['vtsls'].setup { capabilities = capabilities }
+-- require('lspconfig')['lua-language-server'].setup { capabilities = capabilities }
+require'lspconfig'.lua_ls.setup{}
 
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -117,21 +120,6 @@ cmp.setup({
 })
 
 vim.cmd([[
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  set mouse=a
-  set sidescroll=1
-  set ttimeoutlen=50
-  set encoding=utf-8
-  set clipboard=unnamedplus
-
-  set wildmode=list:longest
-
-  set fileformats=unix,dos,mac
-  set listchars=tab:▒░,trail:∞
-  set backspace=indent,eol,start
-  set tabstop=2 softtabstop=0 expandtab shiftwidth=2
-  set list showmatch showmode shiftround ttimeout hidden showcmd hlsearch smartcase nobackup nowritebackup noswapfile termguicolors cursorline lazyredraw nowrap autoindent smarttab incsearch relativenumber number expandtab
-
   tnoremap <Esc> <C-\><C-n>
 
   if maparg('<C-L>', 'n') ==# ''
@@ -147,6 +135,42 @@ vim.cmd([[
   :nnoremap <C-j> :bprevious<CR>
   :nnoremap <C-k> :bnext<CR>
 ]])
+
+vim.o.mouse = "a"
+vim.o.nowrap = false
+vim.o.ttimeoutlen = 50
+vim.o.encoding = "utf-8"
+vim.o.clipboard = "unnamedplus"
+vim.o.wildmode = "list:longest"
+vim.o.fileformats = "unix,dos,mac"
+vim.o.listchars = "tab:▒░,trail:∞"
+vim.o.backspace = "indent,eol,start"
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+vim.o.showmatch = true
+vim.o.showmode = true
+vim.o.shiftround = true
+vim.o.ttimeout = true
+vim.o.hidden = true
+vim.o.showcmd = true
+vim.o.hlsearch = true
+vim.o.smartcase = true
+vim.o.nobackup = true
+vim.o.nowritebackup = true
+vim.o.termguicolors = true
+vim.o.cursorline = true
+vim.o.lazyredraw = true
+vim.o.autoindent = true
+vim.o.smarttab = true
+vim.o.incsearch = true
+vim.o.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.number = true
+vim.o.list = true
+vim.o.swapfile = false
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "*.py" },

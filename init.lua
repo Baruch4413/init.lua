@@ -27,12 +27,7 @@ require('lazy').setup({
   'williamboman/mason-lspconfig.nvim',
   'neovim/nvim-lspconfig',
   'hrsh7th/cmp-nvim-lsp',
-  -- 'hrsh7th/cmp-buffer',
-  -- 'hrsh7th/cmp-path',
-  -- 'hrsh7th/cmp-cmdline',
   'hrsh7th/nvim-cmp',
-  -- 'hrsh7th/cmp-vsnip',
-  -- 'hrsh7th/vim-vsnip',
   'nvim-lualine/lualine.nvim',
 }, opts)
 
@@ -67,7 +62,7 @@ require('mason-lspconfig').setup_handlers({
     })
   end,
 })
--- -- Set up lspconfig.
+
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('lspconfig')['phpactor'].setup { capabilities = capabilities }
@@ -81,11 +76,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
@@ -106,7 +97,6 @@ require('lspconfig')['pyright'].setup{
     flags = lsp_flags,
 }
 
--- Set up nvim-cmp.
 local cmp = require'cmp'
 
 cmp.setup({
@@ -114,8 +104,7 @@ cmp.setup({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
-    -- ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
   }),
   sources = cmp.config.sources(
     {
@@ -168,7 +157,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { "typescript", "tsx", "python", "php" },
   indent = {
     enable = true,
@@ -178,12 +166,6 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     disable = { "python" },
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = true,
-
   },
 }

@@ -169,26 +169,30 @@ require('lspconfig')['tsserver'].setup{
     flags = lsp_flags,
 }
 
-vim.opt_local.tabstop = 2
-vim.opt_local.shiftwidth = 2
-vim.opt_local.softtabstop = 0
-vim.opt_local.expandtab = true
-vim.opt_local.mouse = "a"
--- vim.opt_local.complete-="i"
-vim.opt_local.sidescroll=1
-vim.opt_local.ttimeoutlen=50
-vim.opt_local.encoding="utf-8"
-vim.opt_local.clipboard="unnamedplus"
-vim.opt_local.wildmode="list:full"
-vim.opt_local.wildoptions="fuzzy"
-vim.opt_local.fileformats="unix,dos,mac"
-vim.opt_local.listchars="tab:▒░,trail:∞"
-vim.opt_local.backspace="indent,eol,start"
-vim.opt_local.completeopt="menuone,longest,preview"
 -- vim.keymap.set('n', ':bprevious', '[<C-j>]')
 -- vim.keymap.set('n', ':bnext', '[<C-k>]')
 vim.cmd([[
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set mouse=a
+set complete-=i
+set sidescroll=1
+set ttimeoutlen=50
+set encoding=utf-8
+set clipboard=unnamedplus
+set wildmode=list:longest
+set fileformats=unix,dos,mac
+set listchars=tab:▒░,trail:∞
+set backspace=indent,eol,start
+set completeopt=menuone,longest,preview
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4
 set list showmatch showmode shiftround ttimeout hidden showcmd hlsearch smartcase nobackup nowritebackup noswapfile termguicolors cursorline lazyredraw nowrap autoindent smarttab incsearch relativenumber number expandtab
+
+tnoremap <Esc> <C-\><C-n>
+
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
 :tnoremap <C-j> :bprevious<CR>
 :tnoremap <C-k> :bnext<CR>
 

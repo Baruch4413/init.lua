@@ -69,8 +69,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('lspconfig')['phpactor'].setup { capabilities = capabilities }
 require('lspconfig')['pyright'].setup { capabilities = capabilities }
 require('lspconfig')['vtsls'].setup { capabilities = capabilities }
--- require('lspconfig')['lua-language-server'].setup { capabilities = capabilities }
-require'lspconfig'.lua_ls.setup{}
+require('lspconfig')['lua_ls'].setup { capabilities = capabilities }
 
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)

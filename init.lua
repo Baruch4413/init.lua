@@ -27,12 +27,12 @@ require('lazy').setup({
   'williamboman/mason-lspconfig.nvim',
   'neovim/nvim-lspconfig',
   'hrsh7th/cmp-nvim-lsp',
-  'hrsh7th/cmp-buffer',
-  'hrsh7th/cmp-path',
-  'hrsh7th/cmp-cmdline',
+  -- 'hrsh7th/cmp-buffer',
+  -- 'hrsh7th/cmp-path',
+  -- 'hrsh7th/cmp-cmdline',
   'hrsh7th/nvim-cmp',
-  'hrsh7th/cmp-vsnip',
-  'hrsh7th/vim-vsnip',
+  -- 'hrsh7th/cmp-vsnip',
+  -- 'hrsh7th/vim-vsnip',
   'nvim-lualine/lualine.nvim',
 }, opts)
 
@@ -110,16 +110,6 @@ require('lspconfig')['pyright'].setup{
 local cmp = require'cmp'
 
 cmp.setup({
-  snippet = {
-    -- REQUIRED - you must specify a snippet engine
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-    end,
-  },
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
-  },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -127,49 +117,47 @@ cmp.setup({
     -- ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    -- { name = 'vsnip' }, -- For vsnip users.
-  }, {
-    { name = 'buffer' },
-  })
+  sources = cmp.config.sources(
+    {
+      { name = 'nvim_lsp' },
+    },
+    {
+      { name = 'buffer' },
+    }
+  )
 })
 
--- vim.keymap.set('n', ':bprevious', '[<C-j>]')
--- vim.keymap.set('n', ':bnext', '[<C-k>]')
 vim.cmd([[
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-set mouse=a
-set sidescroll=1
-set ttimeoutlen=50
-set encoding=utf-8
-set clipboard=unnamedplus
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  set mouse=a
+  set sidescroll=1
+  set ttimeoutlen=50
+  set encoding=utf-8
+  set clipboard=unnamedplus
 
-set wildmode=list:longest
+  set wildmode=list:longest
 
-set fileformats=unix,dos,mac
-set listchars=tab:▒░,trail:∞
-set backspace=indent,eol,start
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2
-set list showmatch showmode shiftround ttimeout hidden showcmd hlsearch smartcase nobackup nowritebackup noswapfile termguicolors cursorline lazyredraw nowrap autoindent smarttab incsearch relativenumber number expandtab
+  set fileformats=unix,dos,mac
+  set listchars=tab:▒░,trail:∞
+  set backspace=indent,eol,start
+  set tabstop=2 softtabstop=0 expandtab shiftwidth=2
+  set list showmatch showmode shiftround ttimeout hidden showcmd hlsearch smartcase nobackup nowritebackup noswapfile termguicolors cursorline lazyredraw nowrap autoindent smarttab incsearch relativenumber number expandtab
 
-tnoremap <Esc> <C-\><C-n>
+  tnoremap <Esc> <C-\><C-n>
 
-if maparg('<C-L>', 'n') ==# ''
+  if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-endif
+  endif
 
-:tnoremap <C-j> :bprevious<CR>
-:tnoremap <C-k> :bnext<CR>
+  :tnoremap <C-j> :bprevious<CR>
+  :tnoremap <C-k> :bnext<CR>
 
-:inoremap <C-j> :bprevious<CR>
-:inoremap <C-k> :bnext<CR>
+  :inoremap <C-j> :bprevious<CR>
+  :inoremap <C-k> :bnext<CR>
 
-:nnoremap <C-j> :bprevious<CR>
-:nnoremap <C-k> :bnext<CR>
+  :nnoremap <C-j> :bprevious<CR>
+  :nnoremap <C-k> :bnext<CR>
 ]])
-
--- set list showmatch showmode shiftround ttimeout hidden showcmd hlsearch smartcase nobackup nowritebackup noswapfile termguicolors cursorline lazyredraw nowrap autoindent smarttab incsearch relativenumber number expandtab
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "*.py" },
@@ -187,14 +175,8 @@ require'nvim-treesitter.configs'.setup {
   },
   sync_install = false,
   auto_install = false,
-
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
   highlight = {
     enable = true,
-
     disable = { "python" },
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -202,5 +184,6 @@ require'nvim-treesitter.configs'.setup {
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = true,
+
   },
 }
